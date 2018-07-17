@@ -9,7 +9,8 @@ var con = mysql.createConnection({
 });
 con.connect((err, result) => {
     if(err){
-        return console.log('something went wrong : ',err);
+        console.log('something went wrong : ',err);
+        process.exit();
     }
     console.log('Mysql Connection -good');
 });

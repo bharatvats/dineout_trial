@@ -5,10 +5,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var glob = require('glob');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 var app = express();
 
 // view engine setup
@@ -20,15 +18,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-glob("routes/*.js", function(err, files){
-  if(err){
-    console.error("Error while fetching routes");
-    return;
-  }
-  console.log("Files", files);
-});
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/restaurant", require("./routes/restaurant.route"));
+app.use("/booking", require("./routes/booking.route"));
+app.use("/offers", require("./routes/offer.route"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
