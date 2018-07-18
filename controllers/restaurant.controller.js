@@ -42,7 +42,7 @@ class RestaurantController{
                                 restaurant.offers.push({
                                     offer_id: result.offer_id,
                                     offer_name: result.offer_name,
-                                    discount: result.discount_val,
+                                    discount_val: result.discount_val,
                                     start_time: result.start_time,
                                     end_time: result.end_time
                                 });
