@@ -42,6 +42,23 @@ class BookingController{
         });
     }
 
+    getRestaurantBookingDetails(req, res){
+        let restaurant_id = req.body.restaurantid;
+        let datevalue = req.body.datevalue;
+        if(restaurant_id && datevalue){
+            con.query(`SELECT * FROM booking_orders WHERE restaurant_id= ${restaurant_id} AND booking_time LIKE '${datevalue}%'`, function(err, results, fields){
+                if(err){
+                    return res.status(200).json({code: 500, err: err});
+                }
+                
+                res.json({code: 200, data: results});
+            });
+        }
+        else{
+            res.status(200).json({code: 400, message: "Please select restaurant id & date (YYYY-MM-DD)."});
+        }
+    }
+
 
 }
 module.exports = BookingController;
