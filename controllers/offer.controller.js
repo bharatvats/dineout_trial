@@ -21,7 +21,7 @@ class OfferController{
                     return res.status(200).json({code: 500, err: err});
                 }
                 
-                res.json({code: 200, data: results});
+                res.json({code: 200, data: results[0]});
             });
         }
         else{
