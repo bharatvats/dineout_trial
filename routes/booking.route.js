@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
-//var restaurantController = require('./../controllers/restaurant.controller');
-//router.get('/booking', restaurantController.RestaurantsList);
+var BookingController = require('./../controllers/booking.controller');
+var booking = new BookingController();
+router.post('/create', booking.createBooking);
 module.exports = router;
