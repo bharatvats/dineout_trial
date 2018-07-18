@@ -30,6 +30,7 @@ class RestaurantController{
                         let restaurant = {};
                         restaurant.id = results[0].id;
                         restaurant.name = results[0].name;
+                        restaurant.address = results[0].address;
                         restaurant.features = results[0].features;
                         restaurant.contact = results[0].contact;
                         restaurant.price = results[0].price;
@@ -40,7 +41,7 @@ class RestaurantController{
                             if(result.offer_id){
                                 restaurant.offers.push({
                                     offer_id: result.offer_id,
-                                    oofer_name: result.offer_name,
+                                    offer_name: result.offer_name,
                                     discount: result.discount_val,
                                     start_time: result.start_time,
                                     end_time: result.end_time
