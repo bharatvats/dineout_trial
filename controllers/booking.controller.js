@@ -45,13 +45,22 @@ class BookingController{
     getRestaurantBookingDetails(req, res){
         let restaurant_id = req.body.restaurantid;
         let datevalue = req.body.datevalue;
+        
         if(restaurant_id && datevalue){
+            var d = new Date(datevalue);
+            var day = d.getDay();
+            console.log('day : ',day);
             con.query(`SELECT * FROM booking_orders WHERE restaurant_id= ${restaurant_id} AND booking_time LIKE '${datevalue}%'`, function(err, results, fields){
                 if(err){
                     return res.status(200).json({code: 500, err: err});
                 }
+                con.query(`SELECT * FROM restaurant_timings WHERE restaurant_id= ${restaurant_id} AND day= ${day}`, function(err1, result2, fields){
+                    if(err1){
+                        return res.status(200).json({code: 500, err: err1});
+                    }
+                    res.json({code: 200, data: results, timings : result2});
+                });
                 
-                res.json({code: 200, data: results});
             });
         }
         else{
