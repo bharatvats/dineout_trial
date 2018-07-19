@@ -30,15 +30,15 @@ class BookingController{
     
         if(validator.isEmpty(username) || validator.isEmpty(phone) || validator.isEmpty(restaurant_id) || validator.isEmpty(guest_count)  || validator.isEmpty(booking_time) || validator.isEmpty(bill_amount)){
             
-            return res.status(200).json({code: 500, operation: 'createbooking', err: 'Validation error. please provide all param values except offerid.'});
+            return res.status(200).json({code: 500, operation: 'createbooking', err: 'Validation error. please provide all param values except offerid.', status: 0});
             
         }
         let sql = 'insert into booking_orders SET ?';
         con.query(sql, obj, (err, result) => {
         if(err){
-            return res.status(200).json({code: 500, operation: 'createbooking', err: err});
+            return res.status(200).json({code: 500, operation: 'createbooking', err: err, status: 0});
         }
-        return res.json({code: 200, operation: 'createbooking', data: 1});
+        return res.json({code: 200, operation: 'createbooking', status: 1});
         });
     }
 
@@ -49,7 +49,6 @@ class BookingController{
         if(restaurant_id && datevalue){
             var d = new Date(datevalue);
             var day = d.getDay();
-            console.log('day : ',day);
             con.query(`SELECT * FROM booking_orders WHERE restaurant_id= ${restaurant_id} AND booking_time LIKE '${datevalue}%'`, function(err, results, fields){
                 if(err){
                     return res.status(200).json({code: 500, err: err});
@@ -58,7 +57,7 @@ class BookingController{
                     if(err1){
                         return res.status(200).json({code: 500, err: err1});
                     }
-                    res.json({code: 200, data: results, timings : result2});
+                    res.json({code: 200, data: results, timings : result2[0]});
                 });
                 
             });
