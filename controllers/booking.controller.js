@@ -57,7 +57,9 @@ class BookingController{
                     if(err1){
                         return res.status(200).json({code: 500, err: err1});
                     }
-                    res.json({code: 200, data: results, timings : result2[0]});
+                    res.json({code: 200, data: {
+                        booking: results, timings : result2[0]
+                    }});
                 });
                 
             });
