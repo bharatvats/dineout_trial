@@ -38,7 +38,7 @@ class BookingController{
         if(err){
             return res.status(200).json({code: 500, operation: 'createbooking', err: err, status: 0});
         }
-        return res.json({code: 200, operation: 'createbooking', status: 1});
+        return res.json({code: 200, operation: 'createbooking', status: 1, lastId : result.insertId});
         });
     }
 
